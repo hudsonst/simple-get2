@@ -3,10 +3,17 @@
 function getDogImage(breed) {
     const url=`https://dog.ceo/api/breed/${breed}/images/random`
     fetch(url)
-      .then(response => response.json())
-      .then(responseJson => results(responseJson))
-      .catch(error => alert("Sorry, not working!"));
-  };
+    .then(response => {
+      if (response.status !== 200) {
+         throw new Error("Not 200 response")
+     } else {
+         return response.json()}
+     })
+    .then(responseJson => {
+      return results(responseJson);
+     })  
+    .catch(error => alert("Sorry, that doesn't seem to be a valid breed. Please try again."));
+};
 
 
 
